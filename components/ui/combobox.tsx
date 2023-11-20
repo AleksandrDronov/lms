@@ -52,7 +52,7 @@ export function Combobox({ options, value, onChange }: ComboboxProps) {
                 key={option.value}
                 value={option.value}
                 onSelect={() => {
-                  onChange(option.value === value ? "" : option.value);
+                  onChange(option.value);
                   setOpen(false);
                 }}
               >

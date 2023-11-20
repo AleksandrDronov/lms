@@ -19,19 +19,19 @@ import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Course } from "@prisma/client";
-import { Combobox } from "@/components/ui/combobox";
+import { Input } from "@/components/ui/input";
+import { formatPrice } from "@/lib/format";
 
-interface CategoryFormProps {
+interface PriceFormProps {
   initialData: Course;
   courseId: string;
-  options: { label: string; value: string }[];
 }
 
 const formSchema = z.object({
-  categoryId: z.string(),
+  price: z.coerce.number(),
 });
 
-function CategoryForm({ initialData, courseId, options }: CategoryFormProps) {
+function PriceForm({ initialData, courseId }: PriceFormProps) {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
 
@@ -40,7 +40,7 @@ function CategoryForm({ initialData, courseId, options }: CategoryFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      categoryId: initialData.categoryId || undefined,
+      price: initialData?.price || undefined,
     },
   });
 
@@ -57,21 +57,17 @@ function CategoryForm({ initialData, courseId, options }: CategoryFormProps) {
     }
   };
 
-  const selectedOption = options.find(
-    (option) => option.value === initialData.categoryId
-  );
-
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between ">
-        Course category
+        Course price
         <Button variant="ghost" onClick={toggleEdit}>
           {isEditing ? (
             <>Cancel</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit category
+              Edit price
             </>
           )}
         </Button>
@@ -80,10 +76,10 @@ function CategoryForm({ initialData, courseId, options }: CategoryFormProps) {
         <p
           className={cn(
             "text-sm mt-2",
-            !initialData.categoryId && "text-slate-500 italic"
+            !initialData.price && "text-slate-500 italic"
           )}
         >
-          {selectedOption?.label ?? "No category"}
+          {initialData.price ? formatPrice(initialData.price) : "No price"}
         </p>
       )}
       {isEditing && (
@@ -94,12 +90,15 @@ function CategoryForm({ initialData, courseId, options }: CategoryFormProps) {
           >
             <FormField
               control={form.control}
-              name="categoryId"
+              name="price"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Combobox 
-                      options={options}
+                    <Input
+                      type="number"
+                      step="0.01"
+                      disabled={isSubmitting}
+                      placeholder="Set a price for your course"
                       {...field}
                     />
                   </FormControl>
@@ -119,4 +118,4 @@ function CategoryForm({ initialData, courseId, options }: CategoryFormProps) {
   );
 }
 
-export default CategoryForm;
+export default PriceForm;
