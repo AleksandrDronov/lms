@@ -106,11 +106,9 @@ function PriceForm({ initialData, courseId }: PriceFormProps) {
                 </FormItem>
               )}
             />
-            <div className="flex items-center gap-x-2">
-              <Button type="submit" disabled={!isValid || isSubmitting}>
-                Save
-              </Button>
-            </div>
+            <Button type="submit" disabled={!isValid || isSubmitting}>
+              Save
+            </Button>
           </form>
         </Form>
       )}
