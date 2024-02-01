@@ -98,20 +98,15 @@ function CategoryForm({ initialData, courseId, options }: CategoryFormProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Combobox 
-                      options={options}
-                      {...field}
-                    />
+                    <Combobox options={options} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <div className="flex items-center gap-x-2">
-              <Button type="submit" disabled={!isValid || isSubmitting}>
-                Save
-              </Button>
-            </div>
+            <Button type="submit" disabled={!isValid || isSubmitting}>
+              Save
+            </Button>
           </form>
         </Form>
       )}
