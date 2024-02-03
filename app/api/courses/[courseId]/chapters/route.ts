@@ -9,7 +9,6 @@ export async function POST(
   try {
     const { userId } = auth();
     const { courseId } = params;
-    const { title } = await req.json();
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -26,6 +25,8 @@ export async function POST(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    const { title } = await req.json();
+
     const lastChapter = await db.chapter.findFirst({
       where: {
         courseId,
@@ -35,7 +36,7 @@ export async function POST(
       }
     });
 
-    const newPosition = lastChapter ? lastChapter.position + 1 : 1;
+    const newPosition = lastChapter ? lastChapter.position + 1 : 0;
 
     const chapter = await db.chapter.create({
       data: {
