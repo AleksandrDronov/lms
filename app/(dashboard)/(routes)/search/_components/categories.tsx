@@ -1,4 +1,5 @@
-'use client';
+"use client";
+
 import { Category } from "@prisma/client";
 import React from "react";
 import {
@@ -8,14 +9,14 @@ import {
   FcMusic,
   FcOldTimeCamera,
   FcSalesPerformance,
-  FcSportsMode
-} from 'react-icons/fc';
+  FcSportsMode,
+} from "react-icons/fc";
 import { IconType } from "react-icons/lib";
 import CategoryItem from "./category-item";
 
 interface CategoriesProps {
-  items: Category[]
-};
+  items: Category[];
+}
 
 const iconMap: Record<Category["name"], IconType> = {
   "Engineering": FcEngineering,
@@ -26,9 +27,7 @@ const iconMap: Record<Category["name"], IconType> = {
   "Accounting": FcSalesPerformance,
   "Fitness": FcSportsMode,
 };
-export default function Categories({
-  items
-}: CategoriesProps) {
+export default function Categories({ items }: CategoriesProps) {
   return (
     <div className="flex items-center gap-x-2 overflow-x-auto pb-2">
       {items.map((category) => (
@@ -40,5 +39,5 @@ export default function Categories({
         />
       ))}
     </div>
-  )
+  );
 }
