@@ -5,10 +5,11 @@ import qs from "query-string";
 import { Input } from "./ui/input";
 import { useEffect, useState } from "react";
 import { useDebounce } from "@/hooks/use-debounce";
+import { useSearchStore } from "@/hooks/use-search-store";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 export default function SearchInput() {
-  const [value, setValue] = useState("");
+  const { value, setValue } = useSearchStore();
   const debouncedValue = useDebounce(value);
 
   const searchParams = useSearchParams();
@@ -18,17 +19,17 @@ export default function SearchInput() {
   const currentCategoryId = searchParams.get("categoryId");
 
   useEffect(() => {
-    const url = qs.stringifyUrl(
-      {
-        url: pathname,
-        query: {
-          categoryId: currentCategoryId,
-          title: debouncedValue,
+      const url = qs.stringifyUrl(
+        {
+          url: pathname,
+          query: {
+            categoryId: currentCategoryId,
+            title: debouncedValue,
+          },
         },
-      },
-      { skipNull: true, skipEmptyString: true }
-    );
-    router.push(url);
+        { skipNull: true, skipEmptyString: true, }
+      );
+      router.push(url);
   }, [debouncedValue, currentCategoryId, router, pathname]);
 
   return (

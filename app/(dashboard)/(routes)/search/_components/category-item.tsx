@@ -16,7 +16,7 @@ export default function CategoryItem({
   value,
 }: CategoryItemProps) {
   const pathname = usePathname();
-  const roter = useRouter();
+  const router = useRouter();
   const searchParams = useSearchParams();
 
   const categoryId = searchParams.get("categoryId");
@@ -35,7 +35,7 @@ export default function CategoryItem({
       },
       { skipNull: true, skipEmptyString: true }
     );
-    roter.push(url);
+    router.push(url);
   };
 
   return (
