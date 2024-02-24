@@ -3,10 +3,6 @@ import { Menu } from "lucide-react";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import CourseSidebar from "./course-sidebar";
