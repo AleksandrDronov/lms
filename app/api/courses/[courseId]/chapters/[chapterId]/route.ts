@@ -1,4 +1,3 @@
-import { MuxData } from "@prisma/client";
 import { db } from "@/lib/db";
 import Mux from "@mux/mux-node";
 import { auth } from "@clerk/nextjs";
@@ -134,6 +133,7 @@ export async function PATCH(
         },
       });
 
+
       if (existingMuxData) {
         await Video.Assets.del(existingMuxData.assetId);
         await db.muxData.delete({
@@ -145,7 +145,7 @@ export async function PATCH(
 
       const asset = await Video.Assets.create({
         input: values.videoUrl,
-        playback_policy: "public",
+        playback_policy: ["public"],
         test: false,
       });
 

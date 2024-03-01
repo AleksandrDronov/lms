@@ -1,5 +1,5 @@
 import { Category, Course } from "@prisma/client";
-import CourseCard from "./course-cards";
+import CourseCard from "./course-card";
 
 type CourseWithProgressWithCategory = Course & {
   category: Category | null;
@@ -11,6 +11,7 @@ interface CoursesListProps {
 }
 
 export default function CoursesList({ items }: CoursesListProps) {
+  
   return (
     <div>
       <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4 ">
